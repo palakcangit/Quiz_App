@@ -3,32 +3,36 @@ import mongoosePaginate from "mongoose-paginate";
 
 const schema = new mongoose.Schema(
   {
-    question: {
-      type: String,
-      required: true,
-    },
-    options: {
-      a: {
-        type: String,
-        required: true,
+    questions: [
+      {
+        question: {
+          type: String,
+          required: true,
+        },
+        options: {
+          a: {
+            type: String,
+            required: true,
+          },
+          b: {
+            type: String,
+            required: true,
+          },
+          c: {
+            type: String,
+            required: true,
+          },
+          d: {
+            type: String,
+            required: true,
+          },
+        },
+        rightAnswer: {
+          type: String,
+          required: true,
+        },
       },
-      b: {
-        type: String,
-        required: true,
-      },
-      c: {
-        type: String,
-        required: true,
-      },
-      d: {
-        type: String,
-        required: true,
-      },
-    },
-    rightAnswer: {
-      type: String,
-      required: true,
-    },
+    ],
     startDate: {
       type: Date,
       required: true,
