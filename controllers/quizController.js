@@ -42,3 +42,17 @@ export const createQuiz = async (req, res, next) => {
     }
   }
 };
+
+export const getActiceQuizes = async (req, res, next) => {
+  let { page, perPage } = req.query;
+  try {
+    let quizes = await Quiz.find({ status: "active" });
+    return res.status(200).json({
+      success: true,
+      message: "Active Quiz Created",
+      quizes,
+    });
+  } catch (error) {
+    errorHandler(error.message, 400, res);
+  }
+};
