@@ -46,7 +46,45 @@ export const createQuiz = async (req, res, next) => {
 export const getActiceQuizes = async (req, res, next) => {
   let { page, perPage } = req.query;
   try {
-    let quizes = await Quiz.find({ status: "active" });
+    let quizes = await Quiz.find({ status: "active" }).select(
+      "-questions.rightAnswer"
+    );
+    return res.status(200).json({
+      success: true,
+      message: "Active Quiz Created",
+      quizes,
+    });
+  } catch (error) {
+    errorHandler(error.message, 400, res);
+  }
+};
+
+export const getResult = async (req, res, next) => {
+  let { id } = req.params;
+  try {
+    let quizes = await Quiz.findById(id);
+    let currentTime = new Date().toISOString();
+    console.log(currentTime < quizes.endDate.toISOString());
+    if (currentTime < quizes.endDate.toISOString()) {
+      return res.status(403).json({
+        success: false,
+        message:
+          "Quiz Is Not Finished Yet , Not Allowed to Access This Resource",
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Active Quiz Created",
+      quizes,
+    });
+  } catch (error) {
+    errorHandler(error.message, 400, res);
+  }
+};
+
+export const getAllQuizes = async (req, res, next) => {
+  try {
+    let quizes = await Quiz.find({}).select("-questions.rightAnswer");
     return res.status(200).json({
       success: true,
       message: "Active Quiz Created",
