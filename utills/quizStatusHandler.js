@@ -1,4 +1,4 @@
-import { Quiz } from "../models/Quiz";
+import { Quiz } from "../models/Quiz.js";
 const updateQuizStatus = async () => {
   try {
     // Query quizzes that need status update (based on current time)
