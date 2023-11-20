@@ -16,7 +16,7 @@ An application that allows users to create and participate in timed quizzes. The
 ## Getting Started
 
 - clone repo 
-- nmp i
+- npm i
 - nodemon server.js 
 
 ## API Reference
