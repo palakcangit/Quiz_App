@@ -1,5 +1,7 @@
 import { Quiz } from "../models/Quiz.js";
 import mongoose from "mongoose";
+import { connectDB } from "../config/database.js";
+connectDB();
 const updateQuizStatus = async () => {
   try {
     // Query quizzes that need status update (based on current time)
