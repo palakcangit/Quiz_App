@@ -2,9 +2,10 @@ import { Quiz } from "../models/Quiz.js";
 import mongoose from "mongoose";
 import { connectDB } from "../config/database.js";
 connectDB();
+
+// function to be executed by cron job as path is set in crontab to execute it after each 1 min to update the statuses of quizes
 const updateQuizStatus = async () => {
   try {
-    // Query quizzes that need status update (based on current time)
     const currentDate = new Date();
 
     await Quiz.updateMany(

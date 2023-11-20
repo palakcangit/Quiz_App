@@ -3,6 +3,7 @@ import { errorHandler } from "../utills/errorHandler.js";
 
 export const createQuiz = async (req, res, next) => {
   let { questions, startDate, endDate } = req.body;
+  // handle error if all required fileds are not come in reuesr body
   if (!questions || !startDate || !endDate) {
     errorHandler(
       "Send All Reuired Data:- questions, startDate, endDate ",
@@ -15,6 +16,7 @@ export const createQuiz = async (req, res, next) => {
       let endTimeOfQuiz = new Date(endDate).toLocaleDateString();
       let currentTime = new Date().setHours(0, 0, 0, 0);
       currentTime = new Date(currentTime).toLocaleDateString();
+      // decide status of quiz on the time of creating 
       let status;
       if (startTimeOfQuiz > currentTime) {
         status = "inactive";
@@ -46,6 +48,7 @@ export const createQuiz = async (req, res, next) => {
 export const getActiceQuizes = async (req, res, next) => {
   let { page, perPage } = req.query;
   try {
+    // return quiz but not right answers
     let quizes = await Quiz.find({ status: "active" }).select(
       "-questions.rightAnswer"
     );
@@ -65,6 +68,7 @@ export const getResult = async (req, res, next) => {
     let quizes = await Quiz.findById(id);
     let currentTime = new Date().toISOString();
     console.log(currentTime < quizes.endDate.toISOString());
+    // check if quiz is finished or not if quiz is not finished then return suitable message
     if (currentTime < quizes.endDate.toISOString()) {
       return res.status(403).json({
         success: false,

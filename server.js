@@ -20,8 +20,10 @@ app.use(
 app.use(cookieParser());
 app.use(cors());
 
+//connect to database
 connectDB();
 
+// routes
 import quizRoutes from "./routes/quizRoutes.js";
 app.use("/api/v1/quiz", quizRoutes);
 export default app;
@@ -31,6 +33,8 @@ app.get("/", (req, res) =>
     `<h1>Site is Working. click <a href='#'>here</a> to visit frontend.</h1>`
   )
 );
+
+//fire server
 const serverApp = app.listen(process.env.PORT, () => {
   console.log(`Server is working on port: ${process.env.PORT}`);
 });
