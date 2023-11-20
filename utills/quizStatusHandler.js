@@ -1,4 +1,5 @@
 import { Quiz } from "../models/Quiz.js";
+import mongoose from "mongoose";
 const updateQuizStatus = async () => {
   try {
     // Query quizzes that need status update (based on current time)
